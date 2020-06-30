@@ -6,30 +6,7 @@ name: default
 steps:
 - name: test and package
   image: maven:3-jdk-11
-  volumes:
-    - name: cache
-      path: /root/.m2/repository
-    - name: mvn_conf
-      path: /usr/share/maven/conf/settings.xml
-
   commands:
     - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
     - mvn test -B
     - mvn -B -DskipTests package
-
-- name: build and push image
-  image: plugins/docker
-  settings:
-    repo: repo.isw.la/drone-helloworld
-    auto_tag: true
-    registry: repo.isw.la
-    mirror:
-        - https://repo.isw.la
-
-volumes:
-  - name: cache
-    host:
-      path: /opt/maven/repository
-  - name: mvn_conf
-    host:
-      path: /opt/maven/settings.xml
