@@ -1,7 +1,5 @@
 kind: pipeline
 name: default
-
-
 steps:
 - name: test and package
   image: maven:3-jdk-11
